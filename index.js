@@ -1,6 +1,6 @@
 //Der Port auf dem der Server läuft
 const PORT = 8000;
-const TAG = 'Apple'
+const TAG = "Apple";
 //die benötigten Packages, die über npm installiert werden müssen
 //express: WebFramework um Inhalte im Browser darzustellen
 //axios: Handled die HTTP-Requests

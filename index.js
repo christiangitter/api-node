@@ -1,5 +1,6 @@
 //Der Port auf dem der Server läuft
 const PORT = 8000;
+const TAG = 'Apple'
 //die benötigten Packages, die über npm installiert werden müssen
 //express: WebFramework um Inhalte im Browser darzustellen
 //axios: Handled die HTTP-Requests
@@ -23,6 +24,11 @@ const sites = [
     address: "https://www.giga.de/tech/news/",
     base: "https:",
   },
+  {
+    name: "it-treff",
+    address: "https://www.it-treff.de/news/it-nachrichten",
+    base: "",
+  },
 ];
 //alle Artikel werden in das Array artikel geladen
 const artikel = [];
@@ -32,7 +38,7 @@ sites.forEach((site) => {
   axios.get(site.address).then((response) => {
     const html = response.data;
     const $ = cheerio.load(html);
-    $('a:contains("Krypto")', html).each(function () {
+    $(`a:contains("${TAG}")`, html).each(function () {
       const title = $(this).text();
       const url = $(this).attr("href");
       artikel.push({
@@ -66,7 +72,7 @@ app.get("/news/:siteID", async (req, res) => {
       const html = response.data;
       const $ = cheerio.load(html);
       const specificArticles = [];
-      $('a:contains("Krypto")', html).each(function () {
+      $(`a:contains("${TAG}")`, html).each(function () {
         const title = $(this).text();
         const url = $(this).attr("href");
         specificArticles.push({
